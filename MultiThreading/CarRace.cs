@@ -79,7 +79,7 @@ namespace MultiThreading
         }
 
         /// <summary>
-        /// Waits for all cars to have their CarIsReadyToGo event in the signalled state. 
+        /// Waits for all cars to have their CarIsReadyToGo event in the signaled state. 
         /// </summary>
         public static void WaitForAllCars()
         {
@@ -97,7 +97,7 @@ namespace MultiThreading
         }
 
         /// <summary>
-        /// Resets the CarIsReadyToGo event for all cars to the NON-SIGNALLED state  
+        /// Resets the CarIsReadyToGo event for all cars to the NON-signaled state  
         /// </summary>
         public static void ResetWaitAllCars()
         {
@@ -184,7 +184,7 @@ namespace MultiThreading
             // Wait for all cars to be ready to go
             WaitForAllCars();
 
-            // Reset the CarIsReadyToGo event on all cars to be non-signalled.
+            // Reset the CarIsReadyToGo event on all cars to be non-signaled.
             // This will allow the code calling this "DriveAllCars" method to 
             // use the "WaitForAllCars" method to wait for all cars to complete
             // their trip (either crash or successfully finish).
@@ -234,7 +234,7 @@ namespace MultiThreading
                         Console.WriteLine($"{NumberCarsInFleet - NumberOfCarsCrashed} cars successfully completed their trip, while {NumberOfCarsCrashed} cars crashed during {IntersectionEventCounter} intersection events");
                     }
 
-                    // Signal that this car has finished its trip. Once the last car has signalled the
+                    // Signal that this car has finished its trip. Once the last car has signaled the
                     // CarIsReadyToGo event, any code calling WaitForAllCars will unblock.
                     carInIntersection.CarIsReadyToGo.Set();
                 }
@@ -259,7 +259,7 @@ namespace MultiThreading
                                 Console.WriteLine($"{NumberCarsInFleet - NumberOfCarsCrashed} cars successfully completed their trip, while {NumberOfCarsCrashed} cars crashed during {IntersectionEventCounter} intersection events");
                             }
 
-                            // Signal that all crashed cars have finished their trip. Once the last car has signalled the
+                            // Signal that all crashed cars have finished their trip. Once the last car has signaled the
                             // CarIsReadyToGo event, any code calling WaitForAllCars will unblock.
                             foreach (Car crashed in CrashedCars)
                             {
@@ -374,7 +374,7 @@ namespace MultiThreading
         /// only 1 car enters the intersection at any point in time. This
         /// simulates a 4 way stop at an intersecion. When the car arrives
         /// at the intersection it will stop and wait (using WaitOne)
-        /// until it is signalled that it is safe to enter (using Set)
+        /// until it is signaled that it is safe to enter (using Set)
         /// </summary>
         private static AutoResetEvent StopSign = new AutoResetEvent(true);
 
@@ -395,9 +395,9 @@ namespace MultiThreading
         public static ManualResetEvent StartAllCars = new ManualResetEvent(false);
 
         /// <summary>
-        /// This event started in the non-signalled state. When the event is signalled
+        /// This event started in the non-signaled state. When the event is signaled
         /// it indicates that the thread this car runs on has been started. The
-        /// code that starts all the cars will wait untill ALL cars have signalled
+        /// code that starts all the cars will wait untill ALL cars have signaled
         /// that they are waiting to go.
         /// </summary>
         public AutoResetEvent CarIsReadyToGo { get; set; } = new AutoResetEvent(false);
