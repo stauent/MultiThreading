@@ -134,6 +134,21 @@ namespace MultiThreading
                             .. Do some work here. Only 1 thread allowed in.
                         }
 
+
+                    Mutex - Named mutext can be cross process. CriticalSection is only in-process.
+
+                    Unlike Monitor, Mutex can be used with
+                    WaitHandle.WaitAll and WaitAny, and can be passed across
+                    AppDomain boundaries.
+
+                            public Mutex (bool initiallyOwned);
+
+                            // Wait until it is safe to enter.
+                            mut.WaitOne();
+
+                            // Release the Mutex.
+                            mut.ReleaseMutex();
+
                 A more modern approach to threading (async/await). When you use the new async
                 and await keywords, the compiler will generate a good deal of threading code on your behalf, 
                 using numerous members of the System.Threading and System.Threading.Tasks namespaces.
